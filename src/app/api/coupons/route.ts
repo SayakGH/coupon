@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { v4 as uuidv4 } from 'uuid';
 import clientPromise from '@/lib/db';
-import { ObjectId } from 'mongodb';
 
 // Set the cooldown period (in milliseconds)
 const COOLDOWN_PERIOD = 60 * 60 * 1000; // 1 hour

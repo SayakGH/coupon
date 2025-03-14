@@ -45,6 +45,7 @@ const CouponClaim: React.FC = () => {
         }, 1000);
       }
     } catch (error) {
+        console.error(error);
       setResult({
         success: false,
         message: 'Failed to connect to the server. Please try again later.'
