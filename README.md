@@ -1,8 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Coupon System
 
-## Getting Started
+## Setup Instructions
 
-First, run the development server:
+**Clone the repository:**
+   ```bash
+   git clone https://github.com/your-repo/coupon.git
+   cd coupon
+   ```
+**Install dependencies**
+
+    ```bash
+    npm install
+    # or
+    yarn instal
+    # or
+    pnpm install
+    # or
+    bun intstall
+```
+**Update the Mondodb URI**
+
+    change the MONGODB_URI in seed.js and db.js.
+
+**Run database seed script**
+
+    ```bash
+    node seed.js
+    ```
+
+**Then, run the development server:**
 
 ```bash
 npm run dev
@@ -16,21 +42,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Abuse Prevention Strategies
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Rate Limiting:**
+   The project implements a cooldown period to prevent users from claiming coupons too frequently. This is done by checking if the user has claimed a coupon recently based on their IP address or cookie ID. If a recent claim is found, the user is informed of the remaining cooldown time before they can claim another coupon. This is implemented in the [`GET`](src/app/api/coupons/route.ts ) function.
 
-## Learn More
+2. **Cookie-Based User Identification:**
+   Users are assigned a unique cookie ID which is used to track their coupon claims. This helps in identifying users even if their IP address changes. The cookie is set or refreshed each time a user interacts with the coupon system.
 
-To learn more about Next.js, take a look at the following resources:
+3. **IP Address Tracking:**
+   The user's IP address is recorded along with their coupon claims. This helps in identifying and preventing abuse from users who might try to bypass the cooldown period by using different devices or clearing cookies.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Database Logging:**
+   All coupon claims are logged in the database with details such as the coupon ID, IP address, user agent, cookie ID, and the timestamp of the claim. This provides a comprehensive record of user activity and helps in monitoring and preventing abuse.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+These strategies work together to ensure that the coupon system is not abused and that users can only claim coupons within the allowed limits.
+```
