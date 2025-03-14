@@ -1,7 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 body {
-  background-color: gray-50;
+  background-color: neutral-900;
 }
