@@ -91,7 +91,7 @@ const CouponClaim: React.FC = () => {
       </button>
       
       {result?.success && result.coupon && (
-        <div className="mt-4 p-4 bg-gray-50 rounded border">
+        <div className="mt-4 p-4 bg-gray-50 rounded border text-black">
           <h2 className="font-semibold mb-2">Coupon Details:</h2>
           <p><strong>Code:</strong> {result.coupon.code}</p>
           <p><strong>Description:</strong> {result.coupon.description}</p>
